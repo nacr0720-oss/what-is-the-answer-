@@ -8,7 +8,7 @@ def load_questions(path: str = "questions.json") -> dict:
         st.error(f"Arquivo não encontrado: {path}")
         return {}
     try:
-        with p.open("r", encoding="utf-8") as f:
+        with open(p, "r", encoding="utf-8") as f:
             return json.load(f)
     except json.JSONDecodeError as e:
         st.error(f"Erro ao ler JSON em {path}: {e}")
@@ -47,3 +47,4 @@ else:
             st.write(str(answer))
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
