@@ -23,11 +23,6 @@ with col_input:
     # mantemos o valor original (sem lower) para exibir, mas usaremos lower() ao comparar
     search_lower = (search or "").lower()
 
-col = st.columns(1, vertical_alignment='bottom')
-
-with col:
-    passworld = st.text_input('', placeholder='password', type='passworld')
-
 def cancel_text():
     st.session_state.thylacocephalo = ""
 
@@ -44,6 +39,8 @@ else:
     st.title(f'Search result for "{search}"')
     st.divider()
     found = False
+    if search_lower == 'thylacocephalo is an alien':
+        pass
     for question, answer in questions.items():
         # comparando em lowercase para ser case-insensitive
         if search_lower in question.lower():
@@ -52,6 +49,7 @@ else:
             st.write(str(answer))
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
 
 
