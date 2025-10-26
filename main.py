@@ -1,69 +1,106 @@
 import streamlit as st
 import json
-from pathlib import Path
+import requests
+import base64
 
-def load_questions(path: str = "questions.json") -> dict:
-    p = Path(path)
-    if not p.exists():
-        st.error(f"Arquivo não encontrado: {path}")
-        return {}
+# ==============================
+# CONFIGURAÇÕES GITHUB
+# ==============================
+REPO_OWNER = "SEU_USUARIO"
+REPO_NAME = "SEU_REPO"
+FILE_PATH = "questions.json"
+
+RAW_URL = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{FILE_PATH}"
+API_URL = f"https://api.github.com/repos/{REPO_OWNER}/{REPO_NAME}/contents/{FILE_PATH}"
+TOKEN = st.secrets["GH_TOKEN"]  # configure no Streamlit Secrets
+
+
+# ==============================
+# FUNÇÕES
+# ==============================
+@st.cache_data
+def load_questions() -> dict:
     try:
-        with open(p, "r", encoding="utf-8") as f:
-            return json.load(f)
-    except json.JSONDecodeError as e:
-        st.error(f"Erro ao ler JSON em {path}: {e}")
+        r = requests.get(RAW_URL)
+        r.raise_for_status()
+        return r.json()
+    except Exception as e:
+        st.error(f"❌ Erro ao carregar JSON do GitHub: {e}")
         return {}
+
+
+def save_questions(data: dict):
+    try:
+        # Obter SHA do arquivo atual
+        res = requests.get(API_URL, headers={"Authorization": f"token {TOKEN}"})
+        sha = res.json().get("sha", None)
+
+        # JSON → base64
+        encoded = base64.b64encode(
+            json.dumps(data, indent=4, ensure_ascii=False).encode("utf-8")
+        ).decode("utf-8")
+
+        payload = {
+            "message": "update questions ✅",
+            "content": encoded,
+            "sha": sha
+        }
+
+        r = requests.put(API_URL, json=payload,
+                         headers={"Authorization": f"token {TOKEN}"})
+
+        if r.status_code in (200, 201):
+            st.success("✅ Arquivo atualizado com sucesso!")
+            st.cache_data.clear()  # limpar cache para atualizar
+        else:
+            st.error(f"❌ Erro do GitHub: {r.text}")
+
+    except Exception as e:
+        st.error(f"❌ Falha ao salvar no GitHub: {e}")
+
+
+# ==============================
+# APP UI
+# ==============================
+st.title("🌍 Perguntas & Respostas")
 
 questions = load_questions()
 
-# Layout: input grande e botão de limpar pequeno
-col_input, col_button = st.columns([2, 1], vertical_alignment='top')
-with col_input:
-    search = st.text_input("", placeholder="search", key="thylacocephalo")
-    # mantemos o valor original (sem lower) para exibir, mas usaremos lower() ao comparar
-    search_lower = (search or "").lower()
+search = st.text_input("Pesquisar", placeholder="Digite aqui...").lower()
 
-def cancel_text():
-    st.session_state.thylacocephalo = ""
+st.divider()
 
-with col_button:
-    st.button("✖", type="tertiary", on_click=cancel_text)
+if not search:
+    st.subheader("Todas as perguntas")
+    for q, a in questions.items():
+        st.write(f"**{q}**")
+        st.write(f"{a}")
+        st.write("---")
 
-if not search_lower:
-    st.title("All questions in the world")
-    st.subheader("and your answers")
-    st.divider()
-    for question, answer in questions.items():
-        st.write(question.capitalize(), str(answer).capitalize())
 else:
-    if search_lower != 'thylacocephalo is an alien':
-        st.title(f'Search result for "{search}"')
-        st.divider()
+    if search != "thylacocephalo is an alien":
+        st.subheader(f"Resultados para: {search}")
         found = False
-        for question, answer in questions.items():
-            # comparando em lowercase para ser case-insensitive
-            if search_lower in question.lower():
+
+        for q, a in questions.items():
+            if search in q.lower():
                 found = True
-                st.subheader(question)
-                st.write(str(answer))
-            if not found:
-                st.warning(f'Sorry, \"{search}\" was not found.')
+                st.write(f"**{q}**")
+                st.write(f"{a}")
+                st.write("---")
+
+        if not found:
+            st.warning(f"Nenhum resultado para **{search}**")
     else:
-        addQuestion = st.text_input('', placeholder='question')
-        addAnswer = st.text_input('', placeholder='answer')
-        questions[str(addQuestion)] = addAnswer
-        with open('questions.json', 'w') as j:
-            json.dump(questions, j, ensure_anscii=False)
-        
-        
+        st.subheader("➕ Adicionar Pergunta")
 
+        new_q = st.text_input("Pergunta")
+        new_a = st.text_input("Resposta")
 
-
-
-
-
-
-
-
-
+        if st.button("Salvar no GitHub ✅"):
+            if new_q.strip():
+                questions[new_q] = new_a
+                save_questions(questions)
+            else:
+                st.warning("Preencha a pergunta!")
 
