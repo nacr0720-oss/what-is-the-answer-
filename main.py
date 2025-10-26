@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-import JSON
+import json
 
 def cols(vertical: str, col: str) -> str:
     try:
@@ -14,10 +14,11 @@ def cols(vertical: str, col: str) -> str:
     except:
         print('ERROR')
 
-DATA_PATH = 'questions'
+jsonString = open('questions.json', 'r').readlines()
 
-def load_question(PATH=DATA_PATH):
-    pass
+def load_question(Json=jsonString):
+    return json.loads(Json)
+    
 questions = load_question()
 
 with cols('top', 'r'):
@@ -44,6 +45,7 @@ else:
             st.title(f'{answer}'.capitalize())
         else:
             st.title(f'Sorry no exist "{search}" in this site')
+
 
 
 
