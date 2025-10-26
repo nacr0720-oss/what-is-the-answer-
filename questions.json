@@ -1,4 +1,9 @@
 {
-  "how did the world begin?": "with the big bang",
-  "jesus ever exist?": "yup. scientifically and religiously"
+    "What is the capital of France?": "Paris",
+    "Which animal is known as the King of the Jungle?": "Lion",
+    "What element has the chemical symbol 'O'?": "Oxygen",
+    "What is the largest planet in our solar system?": "Jupiter",
+    "What programming language is this site using?": "Python with Streamlit",
+    "how did the world begin?": "with the big bang",
+    "jesus ever exist?": "yup. scientifically and religiously"
 }
