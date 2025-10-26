@@ -25,6 +25,7 @@ def load_question(PATH=DATA_PATH):
             content = '{' + content + '}'
         return ast.literal_eval(content)
         
+questions = load_question()
 
 with cols('top', 'r'):
     col1, col2 = st.columns([3, 1], )
@@ -50,6 +51,7 @@ else:
             st.title(f'{answer}'.capitalize())
         else:
             st.title(f'Sorry no exist "{search}" in this site')
+
 
 
 
