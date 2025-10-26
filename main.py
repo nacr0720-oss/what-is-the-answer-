@@ -13,7 +13,7 @@ def cols(vertical: str, col: str) -> str:
         print('ERROR')
 
 with open('questions', 'r'):
-    questions = list(q.read())
+    questions = dict(q.read())
 
 with cols('top', 'r'):
     col1, col2 = st.columns([3, 1], )
@@ -39,4 +39,5 @@ else:
             st.title(f'{answer}'.capitalize())
         else:
             st.title(f'Sorry no exist "{search}" in this site')
+
 
