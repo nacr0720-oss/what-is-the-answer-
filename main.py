@@ -17,7 +17,7 @@ def cols(vertical: str, col: str) -> str:
 DATA_PATH = 'question'
 
 def load_question(PATH=DATA_PATH):
-    if os.file.exists(PATH):
+    if os.path.exists(PATH):
         return {}
     with open(PATH, 'r') as q:
         content = q.read().strip()
@@ -53,6 +53,7 @@ else:
             st.title(f'{answer}'.capitalize())
         else:
             st.title(f'Sorry no exist "{search}" in this site')
+
 
 
 
