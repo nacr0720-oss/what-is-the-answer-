@@ -23,7 +23,9 @@ with col_input:
     # mantemos o valor original (sem lower) para exibir, mas usaremos lower() ao comparar
     search_lower = (search or "").lower()
 
-with st.columns([1], vertical_alignment='bottom'):
+col = st.columns(1, vertical_alignment='bottom')
+
+with col:
     passworld = st.text_input('', placeholder='password', type='passworld')
 
 def cancel_text():
@@ -50,6 +52,7 @@ else:
             st.write(str(answer))
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
 
 
