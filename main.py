@@ -1,4 +1,6 @@
 import streamlit as st
+import os
+import ast
 
 def cols(vertical: str, col: str) -> str:
     try:
@@ -51,6 +53,7 @@ else:
             st.title(f'{answer}'.capitalize())
         else:
             st.title(f'Sorry no exist "{search}" in this site')
+
 
 
 
