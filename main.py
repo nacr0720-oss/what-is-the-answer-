@@ -6,8 +6,8 @@ import base64
 # ==============================
 # CONFIGURAÇÕES GITHUB
 # ==============================
-REPO_OWNER = "SEU_USUARIO"
-REPO_NAME = "SEU_REPO"
+REPO_OWNER = 'nacr0720'
+REPO_NAME = 'what-is-the-answer-'
 FILE_PATH = "questions.json"
 
 RAW_URL = f"https://raw.githubusercontent.com/{REPO_OWNER}/{REPO_NAME}/main/{FILE_PATH}"
@@ -103,4 +103,5 @@ else:
                 save_questions(questions)
             else:
                 st.warning("Preencha a pergunta!")
+
 
