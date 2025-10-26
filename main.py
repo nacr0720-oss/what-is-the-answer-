@@ -53,9 +53,10 @@ else:
         addAnswer = st.text_input('', placeholder='answer')
         questions[str(addQuestion)] = addAnswer
         with open('questions.json', 'w') as j:
-            json.dump(questions, j, ensure_anscii=False
+            json.dump(questions, j, ensure_anscii=False)
         
         
+
 
 
 
