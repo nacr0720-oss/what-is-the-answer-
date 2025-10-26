@@ -17,11 +17,14 @@ def load_questions(path: str = "questions.json") -> dict:
 questions = load_questions()
 
 # Layout: input grande e botão de limpar pequeno
-col_input, col_button = st.columns([3, 1], vertical_alignment='top')
+col_input, col_pass col_button = st.columns([2, 1, 1], vertical_alignment=['top', 'bottom','top'])
 with col_input:
     search = st.text_input("", placeholder="search", key="thylacocephalo")
     # mantemos o valor original (sem lower) para exibir, mas usaremos lower() ao comparar
     search_lower = (search or "").lower()
+
+with col_pass:
+    passworld = st.text_input('', placeholder='password', type='passworld')
 
 def cancel_text():
     st.session_state.thylacocephalo = ""
@@ -47,6 +50,7 @@ else:
             st.write(str(answer))
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
 
 
