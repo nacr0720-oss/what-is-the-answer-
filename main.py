@@ -36,11 +36,13 @@ if not search_lower:
     for question, answer in questions.items():
         st.write(question.capitalize(), str(answer).capitalize())
 else:
-    st.title(f'Search result for "{search}"')
-    st.divider()
-    found = False
-    if search_lower == 'thylacocephalo is an alien':
-        pass
+    if search_lower != 'thylacocephalo is an alien':
+        st.title(f'Search result for "{search}"')
+        st.divider()
+        found = False
+    else:
+        addQuestion = st.text_input('', placeholder='question')
+        addAnswer = st.text_input('', placeholder='answer')
     for question, answer in questions.items():
         # comparando em lowercase para ser case-insensitive
         if search_lower in question.lower():
@@ -49,6 +51,7 @@ else:
             st.write(str(answer))
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
 
 
