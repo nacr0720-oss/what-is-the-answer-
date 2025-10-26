@@ -40,17 +40,23 @@ else:
         st.title(f'Search result for "{search}"')
         st.divider()
         found = False
+        for question, answer in questions.items():
+            # comparando em lowercase para ser case-insensitive
+            if search_lower in question.lower():
+                found = True
+                st.subheader(question)
+                st.write(str(answer))
+            if not found:
+                st.warning(f'Sorry, \"{search}\" was not found.')
     else:
         addQuestion = st.text_input('', placeholder='question')
         addAnswer = st.text_input('', placeholder='answer')
-    for question, answer in questions.items():
-        # comparando em lowercase para ser case-insensitive
-        if search_lower in question.lower():
-            found = True
-            st.subheader(question)
-            st.write(str(answer))
-    if not found:
-        st.warning(f'Sorry, \"{search}\" was not found.')
+        questions[str(addQuestion)] = addAnswer
+        with open('questions.json', 'w') as j:
+            json.dump(questions, j, ensure_anscii=False
+        
+        
+
 
 
 
