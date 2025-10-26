@@ -1,6 +1,6 @@
 import streamlit as st
 import os
-import ast
+import JSON
 
 def cols(vertical: str, col: str) -> str:
     try:
@@ -17,16 +17,7 @@ def cols(vertical: str, col: str) -> str:
 DATA_PATH = 'questions'
 
 def load_question(PATH=DATA_PATH):
-    if os.path.exists(PATH):
-        return {}
-    with open(PATH, 'r', encoding='utf-8') as q:
-        content = q.read().strip(',')
-        if not content:
-            return {}
-        if not content.starwith('{'):
-            content = '{' + content + '}'
-        return ast.literal_eval(content)
-        
+    pass
 questions = load_question()
 
 with cols('top', 'r'):
@@ -53,5 +44,6 @@ else:
             st.title(f'{answer}'.capitalize())
         else:
             st.title(f'Sorry no exist "{search}" in this site')
+
 
 
