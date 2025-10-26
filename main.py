@@ -31,7 +31,7 @@ with col_button:
 
 if not search_lower:
     st.title("All questions in the world")
-    st.write("and your answers")
+    st.subheader("and your answers")
     st.divider()
     for question, answer in questions.items():
         st.write(question.capitalize(), str(answer).capitalize())
@@ -47,4 +47,5 @@ else:
             st.write(str(answer))
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
