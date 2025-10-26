@@ -15,7 +15,7 @@ def cols(vertical: str, col: str) -> str:
         print('ERROR')
 
 with open('questions.json', 'r') as j:
-    questions = dict(json.loads(j))
+    questions = json.loads(j.read)
 
 with cols('top', 'r'):
     col1, col2 = st.columns([3, 1], )
@@ -41,6 +41,7 @@ else:
             st.title(f'{answer}'.capitalize())
         else:
             st.title(f'Sorry no exist "{search}" in this site')
+
 
 
 
