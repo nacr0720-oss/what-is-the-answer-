@@ -53,14 +53,3 @@ else:
             st.title(f'{answer}'.capitalize())
         else:
             st.title(f'Sorry no exist "{search}" in this site')
-
-
-
-
-
-
-
-
-
-
-
