@@ -1,56 +1,49 @@
 import streamlit as st
-import os
 import json
+from pathlib import Path
 
-def cols(vertical: str, col: str) -> str:
+def load_questions(path: str = "questions.json") -> dict:
+    p = Path(path)
+    if not p.exists():
+        st.error(f"Arquivo não encontrado: {path}")
+        return {}
     try:
-        colleft, colcenter, colright = st.columns([1,1,1], vertical_alignment=vertical)
-        if col == 'l':
-            return colleft
-        elif col == 'c':
-            return colcenter
-        elif col == 'r':
-            return colright
-    except:
-        print('ERROR')
+        with p.open("r", encoding="utf-8") as f:
+            return json.load(f)
+    except json.JSONDecodeError as e:
+        st.error(f"Erro ao ler JSON em {path}: {e}")
+        return {}
 
-with open('questions.json', 'r', encoding='utf-8') as j:
-    questions = json.load(j)
+questions = load_questions()
 
-with cols('top', 'r'):
-    col1, col2 = st.columns([3, 1], )
-    with col1:
-        search = st.text_input('', placeholder='search', key='phyllacossefalo').lower()
-        def cancel_text():
-            st.session_state.phyllacossefalo = ''
-    with col2:
-        cancel = st.button('✖', type='tertiary', on_click=cancel_text)
+# Layout: input grande e botão de limpar pequeno
+col_input, col_button = st.columns([3, 1])
+with col_input:
+    search = st.text_input("", placeholder="search", key="thylacocephalo")
+    # mantemos o valor original (sem lower) para exibir, mas usaremos lower() ao comparar
+    search_lower = (search or "").lower()
 
-if search == '':
-    st.title('all questions in the world')
-    st.write('and your answers')
+def cancel_text():
+    st.session_state.thylacocephalo = ""
+
+with col_button:
+    st.button("✖", type="tertiary", on_click=cancel_text)
+
+if not search_lower:
+    st.title("All questions in the world")
+    st.write("and your answers")
     st.divider()
-    for question, resoluction in questions.items():
-        st.write(f'{question} '.capitalize(), f'{resoluction}'.capitalize())
+    for question, answer in questions.items():
+        st.write(question.capitalize(), str(answer).capitalize())
 else:
-    st.title(f'search result for "{search}"')
+    st.title(f'Search result for "{search}"')
     st.divider()
-    for result, answer in questions.items():
-        if search in result:
-            st.title(f'{result} '.capitalize())
-            st.title(f'{answer}'.capitalize())
-        else:
-            st.title(f'Sorry no exist "{search}" in this site')
-
-
-
-
-
-
-
-
-
-
-
-
-
+    found = False
+    for question, answer in questions.items():
+        # comparando em lowercase para ser case-insensitive
+        if search_lower in question.lower():
+            found = True
+            st.subheader(question)
+            st.write(str(answer))
+    if not found:
+        st.warning(f'Sorry, \"{search}\" was not found.')
