@@ -14,7 +14,7 @@ def cols(vertical: str, col: str) -> str:
     except:
         print('ERROR')
 
-DATA_PATH = 'question'
+DATA_PATH = 'questions'
 
 def load_question(PATH=DATA_PATH):
     if os.path.exists(PATH):
@@ -53,6 +53,7 @@ else:
             st.title(f'{answer}'.capitalize())
         else:
             st.title(f'Sorry no exist "{search}" in this site')
+
 
 
 
