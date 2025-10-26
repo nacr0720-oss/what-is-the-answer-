@@ -12,8 +12,19 @@ def cols(vertical: str, col: str) -> str:
     except:
         print('ERROR')
 
-with open('questions', 'r') as q:
-    questions = set(q.read())
+DATA_PATH = 'question'
+
+def load_question(PATH=DATA_PATH):
+    if os.file_exists(PATH):
+        return {}
+    with open(PATH, 'r') as q:
+        content = q.read().strip()
+        if not content:
+            return {}
+        if not content.starwith('{'):
+            content = '{' + content + '}'
+        return ast.literal_eval(content)
+        
 
 with cols('top', 'r'):
     col1, col2 = st.columns([3, 1], )
