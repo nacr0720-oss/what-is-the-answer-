@@ -20,7 +20,7 @@ def load_question(PATH=DATA_PATH):
     if os.path.exists(PATH):
         return {}
     with open(PATH, 'r', encoding='utf-8') as q:
-        content = q.read().strip()
+        content = q.read().strip(',')
         if not content:
             return {}
         if not content.starwith('{'):
@@ -53,4 +53,5 @@ else:
             st.title(f'{answer}'.capitalize())
         else:
             st.title(f'Sorry no exist "{search}" in this site')
+
 
