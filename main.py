@@ -16,6 +16,7 @@ def load_questions(path: str = "questions.json") -> dict:
         st.error(f"Erro ao ler JSON em {path}: {e}")
         return {}
 
+bot = commands.Commands('/')
 questions = load_questions()
 
 # Layout: input grande e botão de limpar pequeno
@@ -49,5 +50,6 @@ else:
             st.write(str(answer))
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
 
