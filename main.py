@@ -57,7 +57,10 @@ else:
         elif search == 'B obctme':
             st.write('https://youtu.be/_koeuijFOEU')
     if not found:
-        st.warning(f'Sorry, \"{search}\" was not found.\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n please look too end')
+        st.warning(f'Sorry, \"{search}\" was not found.')
+        sleep(60)
+        st.write('please look too end')
+
 
 
 
