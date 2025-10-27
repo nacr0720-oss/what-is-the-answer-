@@ -55,13 +55,16 @@ else:
             sleep(0.5)
             cancel_text()
         elif search == 'B obctme':
+            found = True
             st.write('https://youtu.be/_koeuijFOEU')
         elif search == 'Which sequel to Hollow Knight features a new playable character named Hornet?':
-            st.write('yes... song not a spectogram... https://www.mediafire.com/file/6aecadesj7fw5x0/end.mp3/file')
+            found = True
+            st.write('yes... song not a spectogram... https://www.mediafire.com/file/89f2x7nd29srjg5/end+(1).mp3/file')
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
         sleep(60)
         st.write('please look too end')
+
 
 
 
