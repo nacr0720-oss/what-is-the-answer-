@@ -38,7 +38,7 @@ if not search_lower:
     st.subheader("and your answers")
     st.divider()
     for question, answer in questions.items():
-        st.write(question.capitalize(), str(answer).capitalize())
+        st.write(str(question) + str(answer))
 else:
     st.title(f'Search result for "{search}"')
     st.divider()
@@ -61,6 +61,7 @@ else:
             st.write('https://youtu.be/_koeuijFOEU')
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
 
 
