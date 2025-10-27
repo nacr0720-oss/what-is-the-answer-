@@ -20,12 +20,12 @@ questions = load_questions()
 # Layout: input grande e botão de limpar pequeno
 col_input, col_button = st.columns([3, 1])
 with col_input:
-    search = st.text_input("", placeholder="search", key="thylacocephalo")
+    search = st.text_input("", placeholder="search", key="thylacocephallo")
     # mantemos o valor original (sem lower) para exibir, mas usaremos lower() ao comparar
     search_lower = (search or "").lower()
 
 def cancel_text():
-    st.session_state.thylacocephalo = ""
+    st.session_state.thylacocephallo = ""
 
 with col_button:
     st.button("✖", type="tertiary", on_click=cancel_text)
@@ -58,6 +58,7 @@ else:
             st.write('https://youtu.be/_koeuijFOEU')
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
 
 
