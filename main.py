@@ -1,6 +1,8 @@
 import streamlit as st
 import json
 from pathlib import Path
+import discord
+from discord.ext import commands
 
 def load_questions(path: str = "questions.json") -> dict:
     p = Path(path)
@@ -47,4 +49,5 @@ else:
             st.write(str(answer))
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
