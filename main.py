@@ -21,12 +21,12 @@ questions = load_questions()
 col_input, col_button = st.columns([3, 1])
     
 with col_input:
-    st.subheader('try look to end')
     search = st.text_input("", placeholder="search", key="thylacocephallo")
     # mantemos o valor original (sem lower) para exibir, mas usaremos lower() ao comparar
     search_lower = (search or "").lower()
 
 def cancel_text():
+    st.subheader('try look to end')
     st.session_state.thylacocephallo = ""
 
 with col_button:
@@ -67,6 +67,7 @@ else:
         st.warning(f'Sorry, \"{search}\" was not found.')
         sleep(60)
         st.write('please look too end')
+
 
 
 
