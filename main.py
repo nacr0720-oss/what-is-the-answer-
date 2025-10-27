@@ -27,7 +27,7 @@ with col_input:
 def cancel_text():
     st.session_state.thylacocephalo = ""
 
-def mos():
+def mod():
     st.session_state.thylacocephalo = 'in the comments'
 
 with col_button:
@@ -61,6 +61,7 @@ else:
             st.write('https://youtu.be/_koeuijFOEU')
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
 
 
