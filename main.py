@@ -16,8 +16,14 @@ def load_questions(path: str = "questions.json") -> dict:
         st.error(f"Erro ao ler JSON em {path}: {e}")
         return {}
 
-bot = commands.Commands('/')
+intents = discord.Intents.all()
+bot = commands.Bot('/', intents=intents)
 questions = load_questions()
+
+
+@bot.command
+async def hellor(ctx: commands.Context):
+    await ctx.reply(f'hellor {ctx.Author.display_name()}.')
 
 # Layout: input grande e botão de limpar pequeno
 col_input, col_button = st.columns([3, 1])
@@ -51,5 +57,6 @@ else:
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
 
+bot.run(st.secrets(Dbot))
 
 
