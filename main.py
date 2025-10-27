@@ -26,10 +26,10 @@ with col_input:
     search_lower = (search or "").lower()
 
 def cancel_text():
-    st.subheader('try look to end')
     st.session_state.thylacocephallo = ""
 
 with col_button:
+    st.subheader('try look to end')
     st.button("✖", type="tertiary", on_click=cancel_text)
     
 if not search_lower:
@@ -65,8 +65,6 @@ else:
             st.markdown('**:rainbow[thylacocephalo]**')
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
-        sleep(60)
-        st.write('please look too end')
 
 
 
