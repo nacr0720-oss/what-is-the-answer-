@@ -19,6 +19,10 @@ questions = load_questions()
 
 # Layout: input grande e botão de limpar pequeno
 col_input, col_button = st.columns([3, 1])
+
+with col_button:
+    st.button("✖", type="tertiary", on_click=cancel_text)
+    
 with col_input:
     st.subheader('try look to end')
     search = st.text_input("", placeholder="search", key="thylacocephallo")
@@ -27,9 +31,6 @@ with col_input:
 
 def cancel_text():
     st.session_state.thylacocephallo = ""
-
-with col_button:
-    st.button("✖", type="tertiary", on_click=cancel_text)
 
 if not search_lower:
     st.title("All questions in the world")
@@ -66,6 +67,7 @@ else:
         st.warning(f'Sorry, \"{search}\" was not found.')
         sleep(60)
         st.write('please look too end')
+
 
 
 
