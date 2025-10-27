@@ -1,6 +1,7 @@
 import streamlit as st
 import json
 from pathlib import Path
+from time import sleep
 
 def load_questions(path: str = "questions.json") -> dict:
     p = Path(path)
@@ -26,6 +27,9 @@ with col_input:
 def cancel_text():
     st.session_state.thylacocephalo = ""
 
+def mos():
+    st.session_state.thylacocephalo = 'in the comments'
+
 with col_button:
     st.button("✖", type="tertiary", on_click=cancel_text)
 
@@ -45,8 +49,19 @@ else:
             found = True
             st.subheader(question)
             st.write(str(answer))
+        elif search == 't h a sanc':
+            found = True
+            st.subheader('@NACRIT0')
+            st.write('https://www.youtube.com/watch?v=hPr-Yc92qaY')
+            sleep(5)
+            mod()
+            sleep(0.5)
+            cancel_text()
+        elif search == 'B obctme':
+            st.write('https://youtu.be/_koeuijFOEU')
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
 
 
