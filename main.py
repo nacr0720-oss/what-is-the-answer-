@@ -22,6 +22,7 @@ col_input, col_button = st.columns([3, 1])
     
 with col_input:
     search = st.text_input("", placeholder="search", key="thylacocephallo")
+    st.subheader('try look to end')
     # mantemos o valor original (sem lower) para exibir, mas usaremos lower() ao comparar
     search_lower = (search or "").lower()
 
@@ -29,7 +30,6 @@ def cancel_text():
     st.session_state.thylacocephallo = ""
 
 with col_button:
-    st.subheader('try look to end')
     st.button("✖", type="tertiary", on_click=cancel_text)
     
 if not search_lower:
@@ -65,6 +65,7 @@ else:
             st.markdown('**:rainbow[thylacocephalo]**')
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
 
 
