@@ -57,6 +57,7 @@ else:
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
 
-bot.run(st.secrets(Dbot))
+bot.run(st.secrets['Dbot'])
+
 
 
