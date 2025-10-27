@@ -25,10 +25,7 @@ with col_input:
     search_lower = (search or "").lower()
 
 def cancel_text():
-    st.session_state['thylacocephalo'] = ""
-
-def mod():
-    st.session_state['thylacocephalo'] = 'in the comments'
+    st.session_state.thylacocephalo = ""
 
 with col_button:
     st.button("✖", type="tertiary", on_click=cancel_text)
@@ -54,13 +51,14 @@ else:
             st.subheader('@NACRIT0')
             st.write('https://www.youtube.com/watch?v=hPr-Yc92qaY')
             sleep(5)
-            mod()
+            st.error('in the comments')
             sleep(0.5)
             cancel_text()
         elif search == 'B obctme':
             st.write('https://youtu.be/_koeuijFOEU')
     if not found:
         st.warning(f'Sorry, \"{search}\" was not found.')
+
 
 
 
